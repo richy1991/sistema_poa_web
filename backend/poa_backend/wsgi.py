@@ -1,4 +1,16 @@
-# Archivo: wsgi.py
-# Descripción: Este archivo forma parte del sistema POA para la carrera de Ingeniería de Sistemas.
-# Funcionalidad: [Describa aquí la lógica que debe implementar este archivo. Por ejemplo: definición de modelos, vistas, rutas o componentes de UI.]
+"""
+WSGI config for poa_backend project.
 
+It exposes the WSGI callable as a module-level variable named ``application``.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/3.2/howto/deployment/wsgi/
+"""
+
+import os
+
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'poa_backend.settings')
+
+application = get_wsgi_application()
