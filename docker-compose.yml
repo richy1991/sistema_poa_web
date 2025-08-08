@@ -1,4 +1,34 @@
-# Archivo: docker-compose.yml
-# Descripción: Este archivo forma parte del sistema POA para la carrera de Ingeniería de Sistemas.
-# Funcionalidad: [Describa aquí la lógica que debe implementar este archivo. Por ejemplo: definición de modelos, vistas, rutas o componentes de UI.]
+version: '3.8'
 
+services:
+  db:
+    image: postgres:latest
+    container_name: sistema_docentes
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: sistema_docentes_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  backend:
+    build: ./backend
+    container_name: poa_backend
+    command: tail -f /dev/null
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8001:8000"
+    depends_on:
+      - db
+    environment:
+      - DB_NAME=sistema_docentes_db
+      - DB_USER=user
+      - DB_PASSWORD=admin
+      - DB_HOST=db
+      - DB_PORT=5432
+
+volumes:
+  postgres_data:
